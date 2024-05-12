@@ -126,7 +126,7 @@ class home_page extends StatelessWidget{
 
             Text("(Or)",style:TextStyle(color: Colors.blue,fontWeight: FontWeight.bold,fontSize: 10,),textAlign: TextAlign.start,),
 
-            SizedBox(height: 50,),
+            SizedBox(height: 20,),
 
 
             Row(children: [
