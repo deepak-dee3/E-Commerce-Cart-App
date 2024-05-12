@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:notes/pages/sign_in_page.dart';
 
 class home_page extends StatelessWidget{
   @override
@@ -133,7 +134,9 @@ class home_page extends StatelessWidget{
 
                           Padding(padding:EdgeInsets.only(left:70),child:Text("Create new account?",style:TextStyle(color: Colors.blue,fontWeight: FontWeight.bold,fontSize: 10,),textAlign: TextAlign.center,)),
 
-                          Text("  click here to register",style:TextStyle(decoration: TextDecoration.underline,color: Color.fromARGB(255, 216, 17, 2),fontWeight: FontWeight.bold,fontSize: 10,),textAlign: TextAlign.start,),
+                          GestureDetector(onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => signup_page()));
+                          },child:Text("  click here to register",style:TextStyle(decoration: TextDecoration.underline,color: Color.fromARGB(255, 216, 17, 2),fontWeight: FontWeight.bold,fontSize: 10,),textAlign: TextAlign.start,),),
 
 
 
