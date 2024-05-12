@@ -133,11 +133,13 @@ class home_page extends StatelessWidget{
 
                           Padding(padding:EdgeInsets.only(left:70),child:Text("Create new account?",style:TextStyle(color: Colors.blue,fontWeight: FontWeight.bold,fontSize: 10,),textAlign: TextAlign.center,)),
 
-                          Text(" click here to register",style:TextStyle(decoration: TextDecoration.underline,color: Color.fromARGB(255, 216, 17, 2),fontWeight: FontWeight.bold,fontSize: 10,),textAlign: TextAlign.start,),
+                          Text("  click here to register",style:TextStyle(decoration: TextDecoration.underline,color: Color.fromARGB(255, 216, 17, 2),fontWeight: FontWeight.bold,fontSize: 10,),textAlign: TextAlign.start,),
 
 
 
-            ],)
+            ],),
+
+
 
 
 
