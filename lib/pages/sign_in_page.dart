@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:notes/pages/choosing_items.dart';
 
 class signup_page extends StatelessWidget{
   @override
@@ -21,10 +22,10 @@ class signup_page extends StatelessWidget{
 
             Container(
               margin: EdgeInsets.zero,
-              alignment: Alignment.topLeft,
+              //alignment: Alignment.topLeft,
               child:Column(children:[
               
-                Text(" Our Cart Welcomes You!!",style: TextStyle(fontFamily:'Lato' ,fontWeight: FontWeight.bold,fontSize: 25),textAlign: TextAlign.left,),
+                Text("SHOPPING CART",style: TextStyle(fontFamily:'Lato' ,fontWeight: FontWeight.bold,fontSize: 25),textAlign: TextAlign.left,),
                 
                 
                 ])
@@ -137,13 +138,17 @@ class signup_page extends StatelessWidget{
 
             SizedBox(height: 30,),
 
-            Container(
+            GestureDetector(onTap:(){
+
+              Navigator.push(context, MaterialPageRoute(builder: (context) => choosing_items()));
+            },
+              child:Container(
               width:330,
               height:60,
               //color: Colors.blue,
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color:Color.fromARGB(255, 15, 15, 16),),
-              child:Padding(padding:EdgeInsets.only(top:10),child:Text("Log In ",textAlign:TextAlign.center,style: TextStyle(color:Colors.blue,fontWeight: FontWeight.bold,fontSize: 18),)),
-            ),
+              child:Padding(padding:EdgeInsets.only(top:10),child:Text("Sign In ",textAlign:TextAlign.center,style: TextStyle(color:Colors.blue,fontWeight: FontWeight.bold,fontSize: 18),)),
+            ),),
             
         ],
         )
