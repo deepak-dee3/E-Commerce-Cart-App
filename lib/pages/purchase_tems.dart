@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:notes/pages/mobile_store.dart';
 
 class purchase_items extends StatelessWidget{
   @override
@@ -169,13 +171,17 @@ class purchase_items extends StatelessWidget{
                   children: [
 
 
-                Padding(padding:EdgeInsets.only(top:30,left: 35),child:CircleAvatar(
+                GestureDetector(onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => mobile_store()));
+                },
+                  child:Padding(padding:EdgeInsets.only(top:30,left: 35),child:CircleAvatar(
+                  
                   radius: 40,
                   backgroundColor: Colors.black,
                   //foregroundColor: Colors.red,
                   backgroundImage: NetworkImage('https://th.bing.com/th?q=Phone+Product+Images&w=120&h=120&c=1&rs=1&qlt=90&cb=1&dpr=1.5&pid=Inline',scale: 10),
                   
-                ),),
+                ),),),
 
                 Padding(padding:EdgeInsets.only(top:30,left: 35),child:CircleAvatar(
                   radius: 40,
