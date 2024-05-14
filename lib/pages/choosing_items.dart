@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:notes/pages/purchase_tems.dart';
 
 class choosing_items extends StatelessWidget{
 
@@ -123,7 +124,9 @@ class choosing_items extends StatelessWidget{
                 Padding(padding:EdgeInsets.all(10),child:Icon(Icons.shopping_bag_outlined),),
 
                 Padding(padding:EdgeInsets.all(20),child:Text('PURCHASE  ',style: TextStyle(fontWeight: FontWeight.bold),),),
-                GestureDetector(onTap: (){},child:Padding(padding:EdgeInsets.only(left:100),child:Icon(Icons.arrow_circle_right),),),
+                GestureDetector(onTap: (){
+                  Navigator.push(context,MaterialPageRoute(builder: (context) => purchase_items()));
+                },child:Padding(padding:EdgeInsets.only(left:100),child:Icon(Icons.arrow_circle_right),),),
 
 
               ],),
