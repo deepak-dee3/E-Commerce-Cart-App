@@ -3,19 +3,78 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
+//import 'package:intl/intl.dart';
 import 'package:notes/pages/choosing_items.dart';
 
-class signup_page extends StatelessWidget{
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
+
+import 'package:firebase_core/firebase_core.dart';
+//import 'firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:notes/pages/sp.dart';
+
+class signup_page extends StatefulWidget{
+  @override
+  State<signup_page> createState() => _signup_pageState();
+}
+
+class _signup_pageState extends State<signup_page> {
+
+
+  String email = ' ', password = ' ', username = ' ',phone = ' ';
+  TextEditingController emailcontroller =  TextEditingController();
+  TextEditingController passcontroller =  TextEditingController();
+  TextEditingController namecontroller =  TextEditingController();
+  TextEditingController phonecontroller =  TextEditingController();
+
+
+  final _formkey= GlobalKey<FormState>();
+
+  registration() async {
+    if(password!=null)
+    {
+      try{
+        UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Registered Successfully',style:TextStyle(fontSize: 20))));
+
+        Navigator.push(context, MaterialPageRoute(builder: (context) => home_page()));
+
+      }on FirebaseAuthException catch (e)
+      {
+        if(e.code == 'weak passord'){
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Password provided is too weak',style:TextStyle(fontSize: 20))));
+        }else if(e.code == 'email-already-in-use')
+        {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('email in use',style:TextStyle(fontSize: 20))));
+
+
+        }
+
+
+      }
+    }
+  }
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
 
       body:Container(
         
-        child:Column(
+       child:Form( key: _formkey,child:Column(
           children: [
 
             SizedBox(height: 80,),
@@ -51,6 +110,8 @@ class signup_page extends StatelessWidget{
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color:Colors.white,),
               child:TextFormField(
                 textAlign: TextAlign.center,
+
+                
                 
                 decoration: InputDecoration(floatingLabelBehavior: FloatingLabelBehavior.auto,border: InputBorder.none,
                 label: Text('  Enter Your Name *'),
@@ -70,6 +131,15 @@ class signup_page extends StatelessWidget{
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color:Colors.white,),
               child:TextFormField(
                 textAlign: TextAlign.center,
+
+                validator: (value){
+                    if(value == null || value.isEmpty)
+                    {
+                      return "Enter your user email";
+                    }
+                    return null;
+                  },
+                  controller: emailcontroller,
                 
                 decoration: InputDecoration(floatingLabelBehavior: FloatingLabelBehavior.auto,border: InputBorder.none,
                 label: Text('  Enter your mail *'),
@@ -91,6 +161,15 @@ class signup_page extends StatelessWidget{
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color:Colors.white,),
               child:TextFormField(
                 textAlign: TextAlign.center,
+
+                validator: (value){
+                    if(value == null || value.isEmpty)
+                    {
+                      return "Enter your user password";
+                    }
+                    return null;
+                  },
+                  controller: passcontroller,
                 
                 decoration: InputDecoration(floatingLabelBehavior: FloatingLabelBehavior.auto,border: InputBorder.none,
                 label: Text('  Enter your password *'),
@@ -140,7 +219,19 @@ class signup_page extends StatelessWidget{
 
             GestureDetector(onTap:(){
 
-              Navigator.push(context, MaterialPageRoute(builder: (context) => choosing_items()));
+              if(_formkey.currentState!.validate())
+          {
+            setState(() {
+              email = emailcontroller.text.trim();
+              username = namecontroller.text.trim();
+              password = passcontroller.text.trim();
+
+            });
+          }
+
+          registration();
+
+              //Navigator.push(context, MaterialPageRoute(builder: (context) => choosing_items()));
             },
               child:Container(
               width:330,
@@ -153,7 +244,6 @@ class signup_page extends StatelessWidget{
         ],
         )
       )
-    );
+    ));
   }
-
 }

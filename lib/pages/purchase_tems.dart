@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:notes/pages/apple.dart';
+import 'package:notes/pages/mobile_2nd_page.dart';
+import 'package:notes/pages/mobile_models.dart';
 import 'package:notes/pages/mobile_store.dart';
+import 'package:notes/pages/mobiles_models.dart';
 
 class purchase_items extends StatelessWidget{
   @override
@@ -172,7 +176,7 @@ class purchase_items extends StatelessWidget{
 
 
                 GestureDetector(onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => mobile_store()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => choose_mobile_models()));
                 },
                   child:Padding(padding:EdgeInsets.only(top:30,left: 35),child:CircleAvatar(
                   

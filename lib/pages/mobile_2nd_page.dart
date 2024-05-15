@@ -1,11 +1,17 @@
-import 'dart:typed_data';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
-class mobile_store extends StatelessWidget{
+class mobile_2nd_page extends StatefulWidget{
+  @override
+  State<mobile_2nd_page> createState() => _mobile_2nd_pageState();
+}
+
+class _mobile_2nd_pageState extends State<mobile_2nd_page> {
+
+
+  final List<String> iitems = ["APPLE","ONE PLUS","RED MI","OPPO","VIVO","REAL ME"];
 
   final List<String> items =  ['APPLE','RED MI', 'POCO' , 'SAMSUNG' , 'OPPO' , 'VIVO'  ];
 
@@ -52,11 +58,8 @@ class mobile_store extends StatelessWidget{
 
   ];
 
-  void _one_plus()
+  void _apple()
   {
-     
-
-     
 
     Container(child:Flexible(child: GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,mainAxisExtent: 300), 
@@ -124,203 +127,112 @@ class mobile_store extends StatelessWidget{
         
    );
 
+    
   }
+
+  int current_index = 0;
   @override
   Widget build(BuildContext context) {
-   
-   return Scaffold(
-    resizeToAvoidBottomInset: false,
+  
 
-   /* body:ListView.separated(itemCount: items.length,
-    separatorBuilder: (context, index) => Divider(height: 10,thickness: 0,),
-        itemBuilder: (context,index)
-        {
-          /*return ListTile(
-            contentPadding: EdgeInsets.symmetric(vertical: 20,horizontal: 15),
-
-            
-            leading: Container(
-              width: 200,
-              height: 100,
-
-              child: ListTile(
-                shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(5)),
-            tileColor: Colors.blue,
-            title:Text('${items[index]}')
-
-              ),
-              //child: Icon(Icons.abc),
-            ),
-            shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(5)),
-            tileColor: Colors.blue,
-            //title:Text('${items[index]}')
-          ); */
-
-          return Padding(padding: EdgeInsets.only(left: 30,right: 30),child:Container(
-            height: 100,
-            //decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-            
-            child:ListTile(
-              contentPadding: EdgeInsets.only(left:130,top:30),
-              //shape: CircleBorder(eccentricity: 10),
-              shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5))),
-              tileColor: Colors.blue,
-            title:Text('${items[index]}',style: TextStyle(fontWeight: FontWeight.bold),),
-            //titleAlignment: ListTileTitleAlignment.center,
-
-
-            )
-          ));
-
-
-        }) */
-
-       /* body:SingleChildScrollView(scrollDirection: Axis.horizontal,
-          child:Row(children:[ListView.builder(itemCount: items.length,scrollDirection: Axis.horizontal,
-        itemBuilder: (context,index)
-        {
-          return ListTile(
-
-            tileColor: Colors.amber,
-            title: Text('${items[index]}'),
-
-          );
-
-        })])) */
-        
-
-       /* body:SingleChildScrollView(
-  scrollDirection: Axis.horizontal,
-  child: Row(
-    children: <Widget>[
-      ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: items.length,
-        itemBuilder: (BuildContext context, int index) {
-          return ListTile(
-            title: Text('${items[index]}'),
-            //subtitle: Text('Subtitle $index'),
-            leading: Icon(Icons.account_circle),
-            onTap: () {
-              // Your onTap function for the item
-            },
-          );
-        },
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('abc'),
       ),
-    ],
-  ),
-) */
 
+      body:Container(
 
-     body:Column(children:[
+        width: double.infinity,
+        height: double.infinity,
 
-      SizedBox(height: 70,),
-      Container(
-        margin: EdgeInsets.all(30),
-      height: 200,
-      child:ListView(
+        child:Column(children: [
 
-       physics:PageScrollPhysics(),
-       shrinkWrap: false,
-        
-        scrollDirection: Axis.horizontal,
-
-        children: [
-          //SizedBox(height: 20,),
-
-          InkWell(
-            
-            child: Container(
-              width: 330,
-              height: 200,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: Colors.blue),
-              child: Center(child:Text('APPLE',style: TextStyle(fontWeight: FontWeight.bold),),),
-            ),
+          SizedBox(
+            height:40
           ),
 
-          SizedBox(width: 10,),
+          SizedBox(
+            height:60 ,
+            width: double.infinity,
 
-          GestureDetector(
-            onTap:(){
+            child:ListView.builder(scrollDirection: Axis.horizontal,
+
+            physics:PageScrollPhysics(),
+            
+            itemCount: items.length,
+              itemBuilder: (context,index)
+            {
+              return Column(
+
+                children: [
+
+                
+                GestureDetector(
+                  
+                  onTap: (){
+
+
+
+                  setState(() {
+                    current_index = index ;
+                  });
+
+                  
+                },
+                  child:AnimatedContainer(
+
+                    height: 50,
+
+                    duration: Duration(milliseconds: 3),
+
+               
+                margin: EdgeInsets.all(5),
+                width: 180,
+                
+                decoration: BoxDecoration(
+
+                  color: current_index == index ? Colors.blue : Colors.grey,
+
+                  borderRadius: current_index == index ? BorderRadius.circular(5) : BorderRadius.circular(5),
+
+                  border: current_index == index ? Border.all(color: Colors.black) : Border.all(color: Colors.black)
+                ),
+                child:Center(
+                child: Text('${items[index]}',style:TextStyle(
+
+                  fontWeight: current_index == index ? FontWeight.bold : FontWeight.bold,
+
+                  color: current_index == index ? Colors.black : Colors.grey[900],
+
+                )),
+              ))),
+
+              //Visibility(child: child)
+
               
-            },
-            child: Container(
-              width: 330,
-              height: 200,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: Colors.grey),
-              child: Center(child:Text('ONE PLUS',style: TextStyle(fontWeight: FontWeight.bold),),),
-            ),),
-            SizedBox(width: 10,),
+              
+                 
+              
+              
+              
+              ]);
 
-          InkWell(
-            child: Container(
-              width: 330,
-              height: 200,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: Colors.grey),
-              child: Center(child:Text('SAMSUNG',style: TextStyle(fontWeight: FontWeight.bold),),),
-            ), ),
+            })
+          ),
 
-            SizedBox(width: 10,),
+          
 
-          InkWell(
-            child: Container(
-              width: 330,
-              height: 200,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: Colors.grey),
-              child: Center(child:Text('RED MI',style: TextStyle(fontWeight: FontWeight.bold),),),
-            ), ),
+          SizedBox(height: 30,),
 
 
-            SizedBox(width: 10,),
+              /*Container(
+                  width: 330,
+                  height: 500,
 
-          InkWell(
-            child: Container(
-              width: 330,
-              height: 200,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: Colors.grey),
-              child: Center(child:Text('POCO',style: TextStyle(fontWeight: FontWeight.bold),),),
-            ), ),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: Colors.amber),
+                )*/
 
-            SizedBox(width: 10,),
-
-          InkWell(
-            child: Container(
-              width: 330,
-              height: 200,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: Colors.grey),
-              child: Center(child:Text('VIVO',style: TextStyle(fontWeight: FontWeight.bold),),),
-            ), ),
-
-            SizedBox(width: 10,),
-
-          InkWell(
-            child: Container(
-              width: 330,
-              height: 200,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: Colors.grey),
-              child: Center(child:Text('OPPO',style: TextStyle(fontWeight: FontWeight.bold),),),
-            ), ),
-
-            SizedBox(width: 10,),
-
-          InkWell(
-            child: Container(
-              width: 330,
-              height: 200,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: Colors.grey),
-              child: Center(child:Text('REAL ME',style: TextStyle(fontWeight: FontWeight.bold),),),
-            ), ),
-
-
-        ],
-      ),
-     ),
-
-     SizedBox(height: 20,),
-
-     
-
-    Container(child:Flexible(child: GridView.builder(
+      /*    Container(child:Flexible(child: GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,mainAxisExtent: 300), 
       itemCount: inner_items.length,
       
@@ -384,10 +296,18 @@ class mobile_store extends StatelessWidget{
      
      )
         
-   ), 
+   ),*/
 
-  
-   ]));
+          
+
+
+        ],)
+      )
+
+
+
+      
+
+    );
   }
-
 }

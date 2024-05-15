@@ -1,9 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:notes/pages/purchase_tems.dart';
 import 'package:notes/pages/sign_in_page.dart';
 
-class home_page extends StatelessWidget{
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
+
+import 'package:firebase_core/firebase_core.dart';
+//import 'firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+
+class home_page extends StatefulWidget{
+  @override
+  State<home_page> createState() => _home_pageState();
+}
+
+class _home_pageState extends State<home_page> {
+
+
+  String login_email = ' ', login_pass = ' ';
+
+  TextEditingController login_emailcontroller = TextEditingController();
+  TextEditingController login_passcontroller = TextEditingController();
+
+  final login_formkey = GlobalKey<FormState>();
+
+  userlogin() async{
+
+    try{
+      await FirebaseAuth.instance.signInWithEmailAndPassword(email: login_email, password: login_pass);
+      Navigator.push(context, MaterialPageRoute(builder: (context) => purchase_items()));
+
+    }on FirebaseAuthException catch (e)
+      {
+        if(e.code == 'user-not-found'){
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('No User found For That Email',style:TextStyle(fontSize: 20))));
+        }else if(e.code == 'wrong-password')
+        {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Wrong Password Provided By User',style:TextStyle(fontSize: 20))));
+
+
+        }
+
+
+      }
+  }
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     
@@ -12,7 +62,7 @@ class home_page extends StatelessWidget{
 
       body:Container(
         color: Colors.grey[50],
-        child:Column(
+        child:Form(key:login_formkey,child:Column(
           children: [
 
             SizedBox(height: 40,),
@@ -76,6 +126,14 @@ class home_page extends StatelessWidget{
               //color: Colors.blue,
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color:Colors.blue,),
               child:TextFormField(
+                controller: login_emailcontroller,
+                validator: (value){
+                    if(value == null || value.isEmpty)
+                    {
+                      return "Enter your user email";
+                    }
+                    return null;
+                  },
                 textAlign: TextAlign.center,
                 
                 decoration: InputDecoration(floatingLabelBehavior: FloatingLabelBehavior.auto,border: InputBorder.none,
@@ -97,6 +155,14 @@ class home_page extends StatelessWidget{
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color:Colors.blue),
               child:TextFormField(
                 textAlign: TextAlign.center,
+                 controller: login_passcontroller,
+                validator: (value){
+                    if(value == null || value.isEmpty)
+                    {
+                      return "Enter your user password";
+                    }
+                    return null;
+                  },
                 
                 decoration: InputDecoration(floatingLabelBehavior: FloatingLabelBehavior.auto,border: InputBorder.none,
                 label: Text('  Enter your password *'),
@@ -116,13 +182,29 @@ class home_page extends StatelessWidget{
             SizedBox(height: 70,),
 
 
-             Container(
+             GestureDetector(
+              onTap:(){
+
+                 if(login_formkey.currentState!.validate())
+          {
+            setState(() {
+              login_email = login_emailcontroller.text.trim();
+              //username = namecontroller.text.trim();
+              login_pass = login_passcontroller.text.trim();
+
+            });
+          }
+
+          userlogin();
+
+              },
+              child:Container(
               width:330,
               height:60,
               //color: Colors.blue,
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color:Color.fromARGB(255, 15, 15, 16),),
               child:Padding(padding:EdgeInsets.only(top:10),child:Text("Log In ",textAlign:TextAlign.center,style: TextStyle(color:Colors.blue,fontWeight: FontWeight.bold,fontSize: 18),)),
-            ),
+            ),),
             SizedBox(height: 20,),
 
             Text("(Or)",style:TextStyle(color: Colors.blue,fontWeight: FontWeight.bold,fontSize: 10,),textAlign: TextAlign.start,),
@@ -153,7 +235,6 @@ class home_page extends StatelessWidget{
       )
 
       
-    );
+    ));
   }
-
 }
