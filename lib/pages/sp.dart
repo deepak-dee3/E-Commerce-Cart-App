@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:notes/pages/choosing_items.dart';
 import 'package:notes/pages/purchase_tems.dart';
 import 'package:notes/pages/sign_in_page.dart';
 
@@ -33,7 +34,7 @@ class _home_pageState extends State<home_page> {
 
     try{
       await FirebaseAuth.instance.signInWithEmailAndPassword(email: login_email, password: login_pass);
-      Navigator.push(context, MaterialPageRoute(builder: (context) => purchase_items()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => choosing_items()));
 
     }on FirebaseAuthException catch (e)
       {

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/mobiles/one_plus.dart';
+import 'package:notes/mobiles/redmi.dart';
 import 'package:notes/pages/apple.dart';
 
 
@@ -59,14 +60,19 @@ class choose_mobile_models extends StatelessWidget{
 
       Row(children: [
 
-       Padding(padding: EdgeInsets.only(left:30),child: Container(
+       GestureDetector(onTap: (){
+
+         Navigator.push(context,MaterialPageRoute(builder: (context) => redmi_page()));
+
+       },
+        child:Padding(padding: EdgeInsets.only(left:30),child: Container(
           width: 150,
           height:170,
          // margin: EdgeInsets.all(5),
           //color:Colors.red,
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color:Colors.blue,),
           child:Center(child:Text('${models[2]}',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),)),
-        ),),
+        ),),),
         SizedBox(width: 10,),
         Padding(padding:EdgeInsets.only(left:20),child:Container(
           width: 150,

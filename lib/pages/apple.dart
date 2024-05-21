@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:notes/apple.mobiles/iphone15.dart';
 import 'package:notes/mobiles/one_plus.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -59,6 +60,7 @@ class apple extends StatelessWidget{
    
    return Scaffold(
     resizeToAvoidBottomInset: false,
+    backgroundColor: Colors.white,
 
    
      body:Column(children:[
@@ -111,11 +113,16 @@ class apple extends StatelessWidget{
 
         child:Column(children: [
 
-          ClipRRect(
+          GestureDetector(onTap:(){
+
+            Navigator.push(context, MaterialPageRoute(builder: (context) => iphone_15()));
+
+          },
+            child:ClipRRect(
 
             child: Image.network('${inner_items.elementAt(index)['images']}',scale: 1,),
             borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10),topLeft: Radius.circular(10),topRight: Radius.circular(10)),
-          ),
+          ),),
 
           SizedBox(height: 10,),
 
